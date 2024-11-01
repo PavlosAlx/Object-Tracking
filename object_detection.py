@@ -10,8 +10,10 @@ cap = cv2.VideoCapture(0)
 cap.set(3, 1180)  # Set width
 cap.set(4, 900)  # Set height
 
-thickness = 2
-line_intensity = 0.8  # higher values mean more intense lines (range 0-1)
+line_thickness = 2  
+# higher values mean more intense lines (range 0-1)
+line_intensity = 0.9
+src_img_intensity = 0.7
 
 previous_positions = {}
 line_canvas = None
@@ -54,7 +56,7 @@ while True:
             
             if object_id in previous_positions:
                 previous_position = previous_positions[object_id]
-                cv2.line(line_canvas, previous_position, current_position, color, thickness)  # Draw line on canvas
+                cv2.line(line_canvas, previous_position, current_position, color, line_thickness)  # Draw line on canvas
 
             # Update previous position
             previous_positions[object_id] = current_position
@@ -63,7 +65,10 @@ while True:
             cv2.putText(img, f'{class_name} {confidence}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
 
     # Overlay the line canvas onto the frame
-    img_with_lines = cv2.addWeighted(img, 1 - line_intensity, line_canvas, line_intensity, 0) 
+
+    #img_with_lines = cv2.addWeighted(img, 0.7, line_canvas, 0.3, 0)
+    #img_with_lines = cv2.addWeighted(img, 1 - line_intensity, line_canvas, line_intensity, 0) 
+    img_with_lines = cv2.addWeighted(img, src_img_intensity, line_canvas, line_intensity, 0)
     
     cv2.imshow("Object Tracking with Persistent Lines", img_with_lines)
 
