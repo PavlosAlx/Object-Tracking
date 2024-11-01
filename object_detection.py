@@ -63,7 +63,7 @@ while True:
             cv2.putText(img, f'{class_name} {confidence}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
 
     # Overlay the line canvas onto the frame
-    img_with_lines = cv2.addWeighted(img, 1 - intensity, line_canvas, intensity, 0) 
+    img_with_lines = cv2.addWeighted(img, 1 - line_intensity, line_canvas, line_intensity, 0) 
     
     cv2.imshow("Object Tracking with Persistent Lines", img_with_lines)
 
