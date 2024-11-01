@@ -2,19 +2,11 @@ from ultralytics import YOLO
 import cv2 
 import math
 
-model = YOLO("yolov8n.pt")
-
-# video_path = 'C:/Users/paulo/Desktop/obj_detection_proj/test_video.mp4'
-
-# results = model.track(source=video_path, tracker="bytetrack.yaml", \
-#                       show=True, save=True, save_dir="./test.mp4")
-
-import cv2
-import math
+model = YOLO("yolov8s.pt")
 
 cap = cv2.VideoCapture(0)
-cap.set(3, 640)  # Set width
-cap.set(4, 480)  # Set height
+cap.set(3, 900)  # Set width
+cap.set(4, 600)  # Set height
 
 classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
               "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
