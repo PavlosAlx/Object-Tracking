@@ -12,8 +12,10 @@ width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
 height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
 print(f"Width: {width}, Height: {height}")
 
-width = 1080
-height = 700
+width = 3840
+height = 2160
+
+
 cap.set(3, width)  # Set width
 cap.set(4, height)  # Set height
 
