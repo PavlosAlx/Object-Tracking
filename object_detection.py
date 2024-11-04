@@ -4,16 +4,22 @@ import cv2
 from information import class_colors, classNames, excluded_classes
 
 # YOLO weights
-model = YOLO("yolov8m.pt")
+model = YOLO("yolov8l.pt")
 
 cap = cv2.VideoCapture(0)
-cap.set(3, 1180)  # Set width
-cap.set(4, 900)  # Set height
 
-line_thickness = 2  
-# higher values mean more intense lines (range 0-1)
+width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+print(f"Width: {width}, Height: {height}")
+
+width = 1080
+height = 700
+cap.set(3, width)  # Set width
+cap.set(4, height)  # Set height
+
+line_thickness = 2
 line_intensity = 0.9
-src_img_intensity = 0.7
+src_img_intensity = 1
 
 previous_positions = {}
 line_canvas = None
