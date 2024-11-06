@@ -4,17 +4,16 @@ import cv2
 from information import class_colors, classNames, excluded_classes
 
 # YOLO weights
-model = YOLO("yolov8l.pt")
+model = YOLO("yolov8m.pt")
 
 cap = cv2.VideoCapture(0)
 
 width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
 height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+width = 1000
+height = 800
+
 print(f"Width: {width}, Height: {height}")
-
-width = 3840
-height = 2160
-
 
 cap.set(3, width)  # Set width
 cap.set(4, height)  # Set height
@@ -43,12 +42,12 @@ while True:
 
         for box in boxes:
 
-            cls = int(box.cls[0])
-            class_name = classNames[cls]
-
             if class_name in excluded_classes:
                 continue
 
+
+            cls = int(box.cls[0])
+            class_name = classNames[cls]
             # Bounding box coordinates,  bounding box, confidence
             x1, y1, x2, y2 = map(int, box.xyxy[0])
             cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), 2)

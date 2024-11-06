@@ -4,7 +4,7 @@ import numpy as np
 from information import class_colors, classNames, excluded_classes
 
 # Initialize YOLO
-model = YOLO("yolov8m.pt")
+model = YOLO("yolov8l.pt")
 
 # Configurable parameters
 line_thickness = 2
@@ -14,13 +14,14 @@ src_img_intensity = 1
 cap = cv2.VideoCapture(0)
 width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
 height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+# Hardcoded if needed
+# width = 1920
+# height = 1080
+
 print(f"Width: {width}, Height: {height}")
-# width = 1000
-# height = 800
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
-# Data storage
 previous_positions = {}  # Maps unique IDs to positions
 line_canvas = None
 
@@ -40,12 +41,12 @@ while True:
     # Process each detected object
     for r in results:
         for box in r.boxes:
+
             cls = int(box.cls[0])
             class_name = classNames[cls]
 
-            # In case you don't want the "person" coordinates to be visible
-            # if class_name in excluded_classes:
-            #     continue
+            if class_name in excluded_classes:
+                continue
 
             # bbox coordinates & current pos
             x1, y1, x2, y2 = map(int, box.xyxy[0])
@@ -55,12 +56,12 @@ while True:
             track_id = int(box.id[0]) 
             color = class_colors.get(class_name, (255, 255, 255))
 
-            # skip tracking "person"
-            if class_name in excluded_classes:
-                # Annotate with class and confidence
-                confidence = round(float(box.conf[0]), 2)
-                cv2.putText(img, f'{class_name} {confidence}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
-                continue  
+            # # skip tracking "person"
+            # if class_name in excluded_classes:
+            #     # Annotate with class and confidence
+            #     confidence = round(float(box.conf[0]), 2)
+            #     cv2.putText(img, f'{class_name} {confidence}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
+            #     continue  
 
             # If the object has previous positions, use them to draw a smoother curve
             if track_id in previous_positions:
@@ -86,7 +87,7 @@ while True:
     img_with_lines = cv2.addWeighted(img, src_img_intensity, line_canvas, line_intensity, 0)
 
     cv2.imshow("Object Tracking with Persistent Curved Lines", img_with_lines)
-    
+
     if cv2.waitKey(1) == ord('q'):
         break
 
