@@ -1,2 +1,4 @@
 *runs/
 *.pt
+*.mp4
+*_pycache_
