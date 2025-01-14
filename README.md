@@ -22,3 +22,5 @@ This project is an object detection system that identifies objects through a liv
 - Python 3.8 or later
 - Required libraries listed in `requirements.txt`
 
+<img width="1432" alt="Captura de pantalla 2025-01-10 a las 14 13 27" src="https://github.com/user-attachments/assets/04851e51-0b3e-4888-9093-25d2d315ad11" />
+<img width="1512" alt="Captura de pantalla 2025-01-10 a las 14 14 10" src="https://github.com/user-attachments/assets/3f06957b-6237-4afa-98b0-ba3153d485ce" />
